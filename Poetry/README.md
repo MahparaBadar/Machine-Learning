@@ -1,79 +1,124 @@
-# Create Project and Manage Dependencies with Poetry
+Sure, let's refine the README with your additional instructions and commands:
 
-[Watch this Poetry Video](https://www.youtube.com/watch?v=g9u-H628jXg&t=16s)
+---
 
-`Poetry` combines dependency management, environment management, and packaging into a single tool. This means you don’t have to juggle between multiple tools like `pip`, `virtualenv`, and `setuptools`.
+# Poetry
 
-Poetry in Python: Poetry is Python's answer to npm and Yarn, offering similar functionalities like managing dependencies, creating virtual environments, and ensuring reproducibility of projects. It simplifies the Python development workflow, making it easy to create robust applications.
+## Overview
 
-Follow the txt file in this directory.
+This project showcases basic Python functions and unit tests using the Poetry dependency manager. It includes functions for adding numbers and corresponding unit tests.
 
-[Python Poetry Cheatsheet](https://gist.github.com/CarlosDomingues/b88df15749af23a463148bd2c2b9b3fb)
+## Setup Instructions
 
-[Poetry Windows Installation](https://gist.github.com/Isfhan/b8b104c8095d8475eb377230300de9b0)
+### 1. Scoop Installation
 
-[Poetry vs. Pip: Modern Python Dependency Management Unveiled](https://python.plainenglish.io/poetry-vs-pip-modern-python-dependency-management-unveiled-15d39e059d39)
+1. Set the execution policy in PowerShell:
+   ```shell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
 
-[The Pain and the Poetry of Python](https://www.pinecone.io/blog/pain-poetry-python/)
+2. Install Scoop package manager for Windows:
+   ```shell
+   Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+   ```
 
-[Install pipx](https://pipx.pypa.io/stable/installation/)
+### 2. Pipx Installation
 
-[Follow Poetry Tutorial](https://realpython.com/dependency-management-python-poetry/)
+1. Install pipx using Scoop:
+   ```shell
+   scoop install pipx
+   ```
 
-    poetry —-version
+### 3. Poetry Installation
 
-Note: If you have a old version of Poetry Installed Upgrade it:
+1. Install Poetry using pipx:
+   ```shell
+   pipx install poetry
+   ```
 
-    pipx upgrade poetry
+### 4. Project Initialization
 
-[Poetry Docs](https://python-poetry.org/docs/)
+1. Create a new project directory using Poetry:
+   ```shell
+   poetry new <project_name>
+   ```
 
-[What are Packages in Python and What is the Role of __init__.py files?](https://martinxpn.medium.com/what-are-packages-in-python-and-what-is-the-role-of-init-py-files-82-100-days-of-python-325a992b2b13)
+## Usage
 
-[Poetry Commands](https://realpython.com/dependency-management-python-poetry/#command-reference)
+1. Open the terminal where the `pyproject.toml` file is present.
+2. Deactivate any existing virtual environment:
+   ```shell
+   conda deactivate
+   ```
+3. Activate the Poetry virtual environment:
+   ```shell
+   poetry shell
+   ```
 
-    poetry run python --version
+### Adding Packages
 
-# Poetry for Microservice
+1. Install required packages using Poetry:
+   ```shell
+   poetry add numpy
+   poetry add fastapi
+   poetry add pandas
+   ```
 
-Poetry is a tool for dependency management and packaging in Python. While it is not specifically optimized for microservices development, but its features can be particularly beneficial in a microservices architecture. Let's explore how Poetry aligns with the needs of microservices development:
+   - Poetry will automatically update the `poetry.lock` file with the added packages.
+   - When sharing the project, others can install the dependencies by running `poetry install`.
 
-### Features of Poetry Beneficial for Microservices
+## Creating and Running Scripts
 
-1. **Dependency Management**: Poetry provides a robust system for managing project dependencies. Each microservice in a microservices architecture typically has its own set of dependencies, and Poetry can help manage these dependencies effectively, reducing conflicts and ensuring consistency.
+1. Navigate to the package folder's parent directory.
+2. Create a file named `main.py` in the package folder.
+3. Write your Python code in `main.py`. For example:
+   ```python
+   def add_two_numbers(num1: int, num2: int):
+       return num1 + num2
 
-2. **Reproducible Builds**: Poetry locks dependencies to specific versions (through `poetry.lock` file), ensuring that every build is reproducible. This is crucial in microservices, where different services need to operate consistently across various environments.
+   def my_sum(*num: int):
+       return sum(num)
 
-3. **Easy Packaging**: With Poetry, packaging and distribution of Python packages are simplified. This can be useful for microservices, especially if they are distributed as packages or if you are working in a Python monorepo setup.
+   print(add_two_numbers(2, 2))
+   print(my_sum(2, 3, 4))
+   ```
 
-4. **Virtual Environments Management**: Poetry automatically manages virtual environments, keeping dependencies isolated for each project. In microservices, this means that each service can have its own isolated environment, reducing the risk of dependency conflicts.
+4. Save the file.
 
-5. **Streamlined Workflow**: Poetry streamlines various tasks like adding/removing dependencies, updating dependencies, and publishing packages. This can improve developer productivity, especially in a microservices setup where managing multiple small services can become complex.
+5. Run the script from the terminal:
+   ```shell
+   python ./child_folder/main.py
+   ```
 
-6. **Integration with CI/CD Pipelines**: Poetry can easily be integrated into Continuous Integration/Continuous Deployment (CI/CD) pipelines, which are often a critical part of microservices infrastructure for automated testing and deployment.
+## Writing and Running Tests
 
-### Considerations for Microservices Development
+1. Create a file named `test_main.py` in the `test` folder.
 
-1. **Service Size and Complexity**: For simple microservices, the features offered by Poetry might be more than what is needed. However, for complex services with many dependencies, Poetry's dependency management and environment isolation can be extremely valuable.
+2. Write your test codes in `test_main.py`. For example:
+   ```python
+   from ned.main import add_two_numbers
 
-2. **Consistency Across Services**: Using the same tool for dependency management across all microservices can help maintain consistency and standardization, which is essential in a distributed architecture.
+   # Writing 3 tests for one function
+   def test_add_two_numbers_t1():
+       assert add_two_numbers(2, 3) == 5
 
-3. **Language Specificity**: Poetry is a Python-specific tool. If your microservices architecture involves multiple programming languages, you might need different tools for dependency management for services not written in Python.
+   def test_add_two_numbers_t2():
+       assert add_two_numbers(10, 7) == 17
 
-4. **Learning Curve**: For teams not familiar with Poetry, there might be a learning curve involved. However, Poetry is generally considered user-friendly and well-documented.
+   def test_add_two_numbers_t3():
+       assert add_two_numbers(10, 10) != 20
+   ```
 
-### Conclusion
+3. Run the tests from the terminal (where `pyproject.toml` is present):
+   ```shell
+   poetry run pytest
+   ```
 
-While Poetry is not specifically tailored for microservices, its features around dependency management, environment isolation, and ease of packaging align well with the requirements of microservices development in Python. It provides a modern and efficient way to manage Python projects, which can be highly beneficial in a microservices context, especially for complex services or when working in a polyglot environment where consistency in Python-based services is important.
+   - To run the tests with detailed output:
+   ```shell
+   poetry run pytest -v
+   ```
 
-# youtube live session
-1. `poetry --version`
-2. `poetry new project_youtube`
-3. `cd project_youtube`
-4. `poetry run python --version`
-5. `poetry add requests`
-6. `poetry run python ./project_youtube/main.py`
-7. `poetry add pytest`
-8. `poetry run pytest`
+---
 
-# https://realpython.com/dependency-management-python-poetry/
+Feel free to further customize this README according to your preferences or project requirements! Let me know if you need any more adjustments.
