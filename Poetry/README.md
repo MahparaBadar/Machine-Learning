@@ -1,7 +1,3 @@
-Sure, let's refine the README with your additional instructions and commands:
-
----
-
 # Poetry
 
 ## Overview
@@ -118,7 +114,3 @@ This project showcases basic Python functions and unit tests using the Poetry de
    ```shell
    poetry run pytest -v
    ```
-
----
-
-Feel free to further customize this README according to your preferences or project requirements! Let me know if you need any more adjustments.
